@@ -29,7 +29,7 @@ project/assembly_name="2d Survivors Course"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot-addons/center_pivot_offset/plugin.cfg", "res://addons/godot-addons/node_library/plugin.cfg", "res://addons/godot-addons/palette_importer/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot-addons/palette_importer/plugin.cfg", "res://addons/godot-addons/center_pivot_offset/plugin.cfg", "res://addons/godot-addons/node_library/plugin.cfg")
 
 [input]
 
@@ -59,9 +59,10 @@ move_down={
 2d_physics/layer_1="Terrain"
 2d_physics/layer_2="Player"
 2d_physics/layer_3="Enemy"
+2d_physics/layer_4="EnemyCollision"
+2d_physics/layer_5="PlayerPickup"
 
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"
-2d/snap/snap_2d_transforms_to_pixel=true
