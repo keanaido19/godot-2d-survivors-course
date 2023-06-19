@@ -1,14 +1,18 @@
-[gd_scene load_steps=8 format=3 uid="uid://dhigsvdpcssh6"]
+[gd_scene load_steps=9 format=3 uid="uid://dhigsvdpcssh6"]
 
 [ext_resource type="TileSet" uid="uid://dbsvxe0w6myws" path="res://resources/tileset.tres" id="1_1t48k"]
 [ext_resource type="PackedScene" uid="uid://4qjgrqqrwgwq" path="res://scenes/game_object/game_camera/game_camera.tscn" id="1_7d335"]
 [ext_resource type="PackedScene" uid="uid://cyftfqphnwtyv" path="res://scenes/game_object/player/player.tscn" id="1_ctqxd"]
 [ext_resource type="PackedScene" uid="uid://8fqlv08lvo7j" path="res://scenes/ui/arena_time_ui.tscn" id="1_rqkvf"]
+[ext_resource type="PackedScene" uid="uid://clu410ujs4uoj" path="res://scenes/ui/experience_bar.tscn" id="1_si6jq"]
 [ext_resource type="PackedScene" uid="uid://bj74nukqj40kx" path="res://scenes/manager/arena_time_manager.tscn" id="2_sindq"]
+[ext_resource type="PackedScene" uid="uid://dqkbtbfyj8hm3" path="res://scenes/manager/experience_manager.tscn" id="4_1phss"]
 [ext_resource type="PackedScene" uid="uid://nhuydv82kclm" path="res://scenes/manager/enemy_manager.tscn" id="5_tppc5"]
-[ext_resource type="PackedScene" uid="uid://x0wtnb31m8ir" path="res://scenes/game_object/experience_vial/experience_vial.tscn" id="7_w40ya"]
 
 [node name="Main" type="Node"]
+
+[node name="ExperienceBar" parent="." node_paths=PackedStringArray("experience_manager") instance=ExtResource("1_si6jq")]
+experience_manager = NodePath("../ExperienceManager")
 
 [node name="ArenaTimeUI" parent="." node_paths=PackedStringArray("arena_time_manager") instance=ExtResource("1_rqkvf")]
 arena_time_manager = NodePath("../ArenaTimeManager")
@@ -16,6 +20,8 @@ arena_time_manager = NodePath("../ArenaTimeManager")
 [node name="ArenaTimeManager" parent="." instance=ExtResource("2_sindq")]
 
 [node name="EnemyManager" parent="." instance=ExtResource("5_tppc5")]
+
+[node name="ExperienceManager" parent="." instance=ExtResource("4_1phss")]
 
 [node name="GameCamera" parent="." instance=ExtResource("1_7d335")]
 
@@ -26,5 +32,3 @@ layer_0/tile_data = PackedInt32Array(1769516, 65537, 4, 1703980, 1, 4, 1638444, 
 
 [node name="Player" parent="." instance=ExtResource("1_ctqxd")]
 position = Vector2(201, 142)
-
-[node name="ExperienceVial" parent="." instance=ExtResource("7_w40ya")]

@@ -1,11 +1,9 @@
 extends Node
 
-
 const MAX_RANGE: float = 150.0
 
-
 @export var sword_ability: PackedScene
-
+var damage: float = 5.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -41,9 +39,12 @@ func _on_timer_timeout() -> void:
 		)
 	)
 
-	var sword_instance: Node2D = sword_ability.instantiate() as Node2D
+	var sword_instance: SwordAbility = (
+		sword_ability.instantiate() as SwordAbility
+	)
 	player.get_parent().add_child(sword_instance)
-
+	sword_instance.hitbox_component.damage = damage
+	
 	var enemy: Node2D = enemies[0] as Node2D
 	sword_instance.global_position = enemy.global_position
 	sword_instance.global_position += (

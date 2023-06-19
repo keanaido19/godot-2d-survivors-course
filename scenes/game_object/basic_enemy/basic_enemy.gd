@@ -1,12 +1,9 @@
 extends CharacterBody2D
 
-
 const MAX_SPEED: float = 40.0
 
+@onready var health_component: HealthComponent = $HealthComponent
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	$Area2D.area_entered.connect(_on_area_entered)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -24,7 +21,3 @@ func get_direction_to_player() -> Vector2:
 		return (player_node.global_position - self.global_position).normalized()
 
 	return Vector2.ZERO
-
-
-func  _on_area_entered(area: Area2D):
-	queue_free()
