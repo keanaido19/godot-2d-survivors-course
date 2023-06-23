@@ -11,12 +11,19 @@ func _ready() -> void:
 func _on_died() -> void:
 	if randf() > drop_percent:
 		return
-	
+
 	if null == vial_scene || not owner is Node2D:
 		return
-	
+
 	var spawn_position: Vector2 = (owner as Node2D).global_position
 	var experience_vial: Node2D = vial_scene.instantiate() as Node2D
-	owner.get_parent().add_child(experience_vial)
+	var entities_layer: Node2D = (
+		get_tree().get_first_node_in_group("entities_layer") as Node2D
+	)
+
+	if null == entities_layer:
+		return
+
+	entities_layer.add_child(experience_vial)
 	experience_vial.global_position = spawn_position
-	
+

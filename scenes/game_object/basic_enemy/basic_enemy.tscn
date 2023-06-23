@@ -1,10 +1,19 @@
-[gd_scene load_steps=8 format=3 uid="uid://bbi37g75r15pe"]
+[gd_scene load_steps=10 format=3 uid="uid://bbi37g75r15pe"]
 
 [ext_resource type="Script" path="res://scenes/game_object/basic_enemy/basic_enemy.gd" id="1_5gtxn"]
 [ext_resource type="Texture2D" uid="uid://dk0pi40krtq5t" path="res://scenes/game_object/basic_enemy/basic_enemy.png" id="1_gim6y"]
 [ext_resource type="PackedScene" uid="uid://celsgig8vfr3u" path="res://scenes/component/vial_drop_component.tscn" id="3_4bkk1"]
 [ext_resource type="PackedScene" uid="uid://doilrwc52clk1" path="res://scenes/component/health_component.tscn" id="3_b0q5f"]
+[ext_resource type="PackedScene" uid="uid://1oqwkbc8051n" path="res://scenes/component/health_bar_component.tscn" id="4_54mnp"]
 [ext_resource type="PackedScene" uid="uid://cbis463oigbsy" path="res://scenes/component/hurtbox_component.tscn" id="4_p7dog"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ykikl"]
+bg_color = Color(0.262745, 0.882353, 0.701961, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.247059, 0.14902, 0.192157, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yybby"]
 radius = 12.0
@@ -22,6 +31,17 @@ script = ExtResource("1_5gtxn")
 
 [node name="VialDropComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_4bkk1")]
 health_component = NodePath("../HealthComponent")
+
+[node name="HealthBarComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_54mnp")]
+custom_minimum_size = Vector2(20, 6)
+offset_left = -10.0
+offset_top = -20.0
+offset_right = 10.0
+offset_bottom = -14.0
+pivot_offset = Vector2(10, 2)
+value = 0.5
+health_component = NodePath("../HealthComponent")
+l = SubResource("StyleBoxFlat_ykikl")
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_p7dog")]
 health_component = NodePath("../HealthComponent")

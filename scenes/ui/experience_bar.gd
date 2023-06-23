@@ -10,7 +10,7 @@ func _ready() -> void:
 	if null == experience_manager:
 		push_error("ExperienceManager is not assigned")
 		return
-	
+
 	experience_manager.experience_updated.connect(_on_experience_updated)
 
 

@@ -1,11 +1,11 @@
 extends CharacterBody2D
+class_name BasicEnemy
 
 const MAX_SPEED: float = 40.0
 
 @onready var health_component: HealthComponent = $HealthComponent
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var direction: Vector2 = get_direction_to_player()
 	self.velocity = direction * MAX_SPEED
@@ -21,3 +21,6 @@ func get_direction_to_player() -> Vector2:
 		return (player_node.global_position - self.global_position).normalized()
 
 	return Vector2.ZERO
+
+
+
