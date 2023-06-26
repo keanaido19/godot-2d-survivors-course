@@ -4,18 +4,24 @@ class_name Player
 const MAX_SPEED: float = 125.0
 const ACCELERATION_SMOOTHING: float = 25.0
 
+@export var starting_weapon: Ability
+
 @onready var damage_interval_timer: Timer = $DamageIntervalTimer
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var abilities: Node = $Abilities
+@onready var animation_tree: AnimationTree = $AnimationTree
+@onready var visuals: Node2D = $Visuals
 
 var number_colliding_bodies: int = 0
 
 
 func _ready() -> void:
+	animation_tree.active = true
 	$CollisionArea2D.body_entered.connect(_on_body_entered)
 	$CollisionArea2D.body_exited.connect(_on_body_exited)
 	damage_interval_timer.timeout.connect(_on_damage_interval_timer_timeout)
 	GameEvents.ability_upgrade_added.connect(_on_ability_upgrade_added)
+	GameEvents.emit_ability_upgrade_added(starting_weapon)
 
 
 func _process(delta):
@@ -29,7 +35,19 @@ func _process(delta):
 			target_velocity, 1.0 - exp(-delta * ACCELERATION_SMOOTHING)
 		)
 	)
-	
+
+	var move_sign: int = sign(movement_vector.x)
+
+	if  move_sign != 0:
+		visuals.scale = Vector2(move_sign, 1.0)
+
+	if movement_vector != Vector2.ZERO:
+		animation_tree["parameters/conditions/is_idle"] = false
+		animation_tree["parameters/conditions/is_walking"] = true
+	else:
+		animation_tree["parameters/conditions/is_idle"] = true
+		animation_tree["parameters/conditions/is_walking"] = false
+
 	move_and_slide()
 
 

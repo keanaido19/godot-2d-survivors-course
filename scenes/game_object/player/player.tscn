@@ -1,10 +1,123 @@
-[gd_scene load_steps=9 format=3 uid="uid://cyftfqphnwtyv"]
+[gd_scene load_steps=19 format=3 uid="uid://cyftfqphnwtyv"]
 
 [ext_resource type="Script" path="res://scenes/game_object/player/player.gd" id="1_3any3"]
 [ext_resource type="Texture2D" uid="uid://ctntiktekrkba" path="res://scenes/game_object/player/player.png" id="1_xeve1"]
+[ext_resource type="Resource" uid="uid://d3ejso8dl0hk3" path="res://resources/upgrades/sword.tres" id="2_fy03x"]
 [ext_resource type="PackedScene" uid="uid://doilrwc52clk1" path="res://scenes/component/health_component.tscn" id="2_uh8la"]
-[ext_resource type="PackedScene" uid="uid://c2vsip4t5agv" path="res://scenes/ability/sword_ability_controller/sword_ability_controller.tscn" id="2_ysedw"]
 [ext_resource type="PackedScene" uid="uid://1oqwkbc8051n" path="res://scenes/component/health_bar_component.tscn" id="4_5p1wi"]
+
+[sub_resource type="Animation" id="Animation_4cfaw"]
+resource_name = "walk"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1.7411, 0.517633, 0.574348),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -4), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/Sprite2D:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.261799, 0.261799, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Visuals/Sprite2D:scale")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(2.21914, 1.7411, 0.812253),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.7, 1.2), Vector2(1.3, 0.7)]
+}
+
+[sub_resource type="Animation" id="Animation_3hxsu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Visuals/Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bcvcl"]
+_data = {
+"RESET": SubResource("Animation_3hxsu"),
+"walk": SubResource("Animation_4cfaw")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7jgu0"]
+animation = &"RESET"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lpatq"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3l0c2"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_q2f5d"]
+advance_mode = 2
+advance_condition = &"is_walking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bumsn"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"is_idle"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_74qmi"]
+states/RESET/node = SubResource("AnimationNodeAnimation_7jgu0")
+states/RESET/position = Vector2(444, 100)
+states/walk/node = SubResource("AnimationNodeAnimation_lpatq")
+states/walk/position = Vector2(709, 100)
+transitions = ["Start", "RESET", SubResource("AnimationNodeStateMachineTransition_3l0c2"), "RESET", "walk", SubResource("AnimationNodeStateMachineTransition_q2f5d"), "walk", "RESET", SubResource("AnimationNodeStateMachineTransition_bumsn")]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_pjcui"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jb21l"]
 radius = 32.0
@@ -19,6 +132,19 @@ radius = 5.0
 collision_layer = 0
 motion_mode = 1
 script = ExtResource("1_3any3")
+starting_weapon = ExtResource("2_fy03x")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_bcvcl")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_74qmi")
+anim_player = NodePath("../AnimationPlayer")
+parameters/playback = SubResource("AnimationNodeStateMachinePlayback_pjcui")
+parameters/conditions/is_idle = false
+parameters/conditions/is_walking = false
 
 [node name="HealthComponent" parent="." instance=ExtResource("2_uh8la")]
 
@@ -33,8 +159,6 @@ size_flags_vertical = 1
 health_component = NodePath("../HealthComponent")
 
 [node name="Abilities" type="Node" parent="."]
-
-[node name="SwordAbilityController" parent="Abilities" instance=ExtResource("2_ysedw")]
 
 [node name="DamageIntervalTimer" type="Timer" parent="."]
 wait_time = 0.5
@@ -56,7 +180,9 @@ collision_mask = 8
 position = Vector2(0, -7)
 shape = SubResource("CircleShape2D_4aejp")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
 texture = ExtResource("1_xeve1")
 offset = Vector2(0, -8)
 
