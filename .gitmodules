@@ -1,3 +1,4 @@
 [submodule "addons/godot-addons"]
 	path = addons/godot-addons
 	url = https://github.com/firebelley/godot-addons.git
+	ignore = dirty

@@ -6,6 +6,7 @@ const ACCELERATION_SMOOTHING: float = 25.0
 
 @onready var damage_interval_timer: Timer = $DamageIntervalTimer
 @onready var health_component: HealthComponent = $HealthComponent
+@onready var abilities: Node = $Abilities
 
 var number_colliding_bodies: int = 0
 
@@ -14,6 +15,7 @@ func _ready() -> void:
 	$CollisionArea2D.body_entered.connect(_on_body_entered)
 	$CollisionArea2D.body_exited.connect(_on_body_exited)
 	damage_interval_timer.timeout.connect(_on_damage_interval_timer_timeout)
+	GameEvents.ability_upgrade_added.connect(_on_ability_upgrade_added)
 
 
 func _process(delta):
@@ -27,7 +29,7 @@ func _process(delta):
 			target_velocity, 1.0 - exp(-delta * ACCELERATION_SMOOTHING)
 		)
 	)
-
+	
 	move_and_slide()
 
 
@@ -66,3 +68,8 @@ func _on_body_exited(body: Node2D) -> void:
 
 func _on_damage_interval_timer_timeout() -> void:
 	check_deal_damage()
+
+
+func _on_ability_upgrade_added(upgrade: AbilityUpgrade) -> void:
+	if upgrade is Ability:
+		abilities.add_child(upgrade.ability_controller_scene.instantiate())

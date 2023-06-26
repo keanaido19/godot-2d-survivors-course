@@ -4,23 +4,54 @@ extends Node
 @export var upgrade_screen: PackedScene
 @export var upgrade_pool: Array[AbilityUpgrade]
 
-var current_upgrades: Dictionary = {}
-
 
 func _ready() -> void:
-	if null == experience_manager:
-		push_error("ExperienceManager is not assigned")
-		return
-
 	experience_manager.level_up.connect(_on_level_up)
 
 
-func _on_level_up(current_level: int) -> void:
-	var chosen_upgrade: AbilityUpgrade = (
-		upgrade_pool.pick_random() as AbilityUpgrade
+func apply_upgrade(upgrade: AbilityUpgrade) -> void:
+	GameEvents.player_upgrades_changed.connect(
+		_on_player_upgrades_changed.bind(upgrade)
 	)
+	GameEvents.emit_ability_upgrade_added(upgrade)
 
-	if null == chosen_upgrade:
+func pick_unique_upgrades(amount: int = 3) -> Array[AbilityUpgrade]:
+	assert(amount > 0)
+	
+	var chosen_upgrades: Array[AbilityUpgrade] = []
+	
+	if upgrade_pool.is_empty():
+		return chosen_upgrades
+	
+	var filtered_upgrades: Array[AbilityUpgrade] = upgrade_pool.duplicate()	
+	
+	for i in amount:
+		if filtered_upgrades.is_empty():
+			break
+		
+		var chosen_upgrade: AbilityUpgrade = (
+			filtered_upgrades.pick_random()
+		)
+		
+		filtered_upgrades = (
+			filtered_upgrades.filter(func (upgrade):
+				return upgrade != chosen_upgrade
+				)
+			)
+		
+		chosen_upgrades.append(chosen_upgrade)
+	
+	return chosen_upgrades
+
+
+func _on_upgrade_selected(upgrade: AbilityUpgrade):
+	apply_upgrade(upgrade)
+
+
+func _on_level_up(current_level: int) -> void:
+	var chosen_upgrades: Array[AbilityUpgrade] = pick_unique_upgrades()
+
+	if chosen_upgrades.is_empty():
 		return
 
 	var upgrade_screen_instance: UpgradeScreen = (
@@ -28,24 +59,18 @@ func _on_level_up(current_level: int) -> void:
 	)
 
 	self.add_child(upgrade_screen_instance)
-	upgrade_screen_instance.set_ability_upgrades([chosen_upgrade])
+	upgrade_screen_instance.set_ability_upgrades(chosen_upgrades)
 	upgrade_screen_instance.upgrade_selected.connect(_on_upgrade_selected)
 
 
-func apply_upgrade(upgrade: AbilityUpgrade) -> void:
-	var has_upgrade: bool = current_upgrades.has(upgrade.id)
-
-	if not has_upgrade:
-		current_upgrades[upgrade.id] = {
-			"resource": upgrade,
-			"quantity": 1
-		}
-	else:
-		current_upgrades[upgrade.id]["quantity"] += 1
-
-	GameEvents.emit_ability_upgrade_added(upgrade, current_upgrades)
-	print_debug(current_upgrades)
-
-
-func _on_upgrade_selected(upgrade: AbilityUpgrade):
-	apply_upgrade(upgrade)
+func _on_player_upgrades_changed(ability: AbilityUpgrade) -> void:
+	if (
+		GameEvents.player_upgrades[ability.id]["quantity"] 
+		>= 
+		ability.max_quantity
+	):
+		upgrade_pool = (
+			upgrade_pool.filter(func (pool_upgrade): 
+				return pool_upgrade.id != ability.id
+				)
+			)
