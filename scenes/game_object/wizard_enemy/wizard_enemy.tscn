@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cw0jwfro00djw"]
+[gd_scene load_steps=14 format=3 uid="uid://cw0jwfro00djw"]
 
 [ext_resource type="Script" path="res://scenes/game_object/wizard_enemy/wizard_enemy.gd" id="1_r6b2y"]
 [ext_resource type="PackedScene" uid="uid://doilrwc52clk1" path="res://scenes/component/health_component.tscn" id="1_wnxj5"]
@@ -8,6 +8,118 @@
 [ext_resource type="PackedScene" uid="uid://cbis463oigbsy" path="res://scenes/component/hurtbox_component.tscn" id="4_78lon"]
 [ext_resource type="PackedScene" uid="uid://c8mcwk8b1v56i" path="res://scenes/component/velocity_component.tscn" id="4_kf5aj"]
 [ext_resource type="PackedScene" uid="uid://celsgig8vfr3u" path="res://scenes/component/vial_drop_component.tscn" id="5_5p6qm"]
+
+[sub_resource type="Animation" id="Animation_i4x1x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Visuals/Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_rsryt"]
+resource_name = "walk"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-1, 0), Vector2(0, -1), Vector2(1, 0), Vector2(-1, 0), Vector2(0, -1), Vector2(1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/Sprite2D:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [-0.174533, 0.174533, 0.174533, -0.174533]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Visuals/Sprite2D:scale")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(0.68302, 0.535887, 2.92817, 0.812252, 0.554785, 3.03143),
+"update": 0,
+"values": [Vector2(1.2, 1), Vector2(0.9, 1.1), Vector2(1.1, 0.9), Vector2(1.2, 1), Vector2(0.9, 1.1), Vector2(1.1, 0.9)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"values": [{
+"args": [true],
+"method": &"set_is_moving"
+}, {
+"args": [false],
+"method": &"set_is_moving"
+}, {
+"args": [true],
+"method": &"set_is_moving"
+}, {
+"args": [false],
+"method": &"set_is_moving"
+}, {
+"args": [true],
+"method": &"set_is_moving"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bw7ct"]
+_data = {
+"RESET": SubResource("Animation_i4x1x"),
+"walk": SubResource("Animation_rsryt")
+}
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4i7ty"]
 radius = 15.0
@@ -19,6 +131,12 @@ radius = 4.0
 collision_layer = 8
 collision_mask = 9
 script = ExtResource("1_r6b2y")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "walk"
+libraries = {
+"": SubResource("AnimationLibrary_bw7ct")
+}
 
 [node name="HealthComponent" parent="." instance=ExtResource("1_wnxj5")]
 max_health = 22.0

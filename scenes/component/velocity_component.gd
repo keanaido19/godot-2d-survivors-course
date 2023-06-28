@@ -26,6 +26,10 @@ func accelerate_to_player() -> void:
 	accelerate_in_direction(direction)
 
 
+func deaccelerate() -> void:
+	accelerate_in_direction(Vector2.ZERO)
+
+
 func accelerate_in_direction(direction: Vector2) -> void:
 	var desired_velocity: Vector2 = direction * max_speed
 
