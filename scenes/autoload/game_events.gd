@@ -3,7 +3,7 @@ extends Node
 
 signal experience_vial_collected(amount: float)
 signal player_level_up(level: int)
-signal ability_upgrade_added(upgrade: AbilityUpgrade)
+signal ability_upgrade_added(upgrade: AbilityUpgrade, quantity: int)
 signal player_upgrades_changed()
 signal upgrade_pool_updated(upgrade_pool: Array[AbilityUpgrade])
 
@@ -30,14 +30,17 @@ func emit_ability_upgrade_added(upgrade: AbilityUpgrade) -> void:
 		player_upgrades[upgrade.id]["quantity"] += 1
 
 	if upgrade is Ability:
-		upgrade as Ability
 		for ability in upgrade.ability_upgrades:
 			add_upgrade_to_upgrade_pool(ability)
 
-	if (player_upgrades[upgrade.id]["quantity"] >= upgrade.max_quantity):
+	if (
+		upgrade.max_quantity != 0
+		&&
+		player_upgrades[upgrade.id]["quantity"] >= upgrade.max_quantity
+	):
 		remove_upgrade_from_upgrade_pool(upgrade)
 
-	ability_upgrade_added.emit(upgrade)
+	ability_upgrade_added.emit(upgrade, player_upgrades[upgrade.id]["quantity"])
 	emit_player_upgrades_changed()
 
 

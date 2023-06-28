@@ -88,6 +88,6 @@ func _on_damage_interval_timer_timeout() -> void:
 	check_deal_damage()
 
 
-func _on_ability_upgrade_added(upgrade: AbilityUpgrade) -> void:
+func _on_ability_upgrade_added(upgrade: AbilityUpgrade, quantity: int) -> void:
 	if upgrade is Ability:
 		abilities.add_child(upgrade.ability_controller_scene.instantiate())

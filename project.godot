@@ -35,6 +35,10 @@ project/assembly_name="2d Survivors Course"
 
 enabled=PackedStringArray("res://addons/godot-addons/palette_importer/plugin.cfg", "res://addons/godot-addons/center_pivot_offset/plugin.cfg", "res://addons/godot-addons/node_library/plugin.cfg")
 
+[gui]
+
+theme/custom="res://resources/theme/theme.tres"
+
 [input]
 
 move_left={

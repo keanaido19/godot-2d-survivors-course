@@ -92,7 +92,7 @@ func _on_timer_timeout() -> void:
 
 	var max_health: float = enemy.health_component.max_health
 	enemy.health_component.set_max_health(
-		max_health + ((max_health * 0.1 * player_level) * player_level / 3)
+		max_health + ((max_health * 0.1 * player_level) * player_level / 3.7)
 	)
 
 	enemy.global_position = get_spawn_position()

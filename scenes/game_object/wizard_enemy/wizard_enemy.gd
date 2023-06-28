@@ -13,7 +13,7 @@ func _process(delta):
 		velocity_component.accelerate_to_player()
 	else:
 		velocity_component.deaccelerate()
-	
+
 	velocity_component.move(self)
 
 	var direction_sign: int = sign(velocity.x)

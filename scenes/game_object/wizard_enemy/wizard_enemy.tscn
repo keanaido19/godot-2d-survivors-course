@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cw0jwfro00djw"]
+[gd_scene load_steps=17 format=3 uid="uid://cw0jwfro00djw"]
 
 [ext_resource type="Script" path="res://scenes/game_object/wizard_enemy/wizard_enemy.gd" id="1_r6b2y"]
 [ext_resource type="PackedScene" uid="uid://doilrwc52clk1" path="res://scenes/component/health_component.tscn" id="1_wnxj5"]
@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://cbis463oigbsy" path="res://scenes/component/hurtbox_component.tscn" id="4_78lon"]
 [ext_resource type="PackedScene" uid="uid://c8mcwk8b1v56i" path="res://scenes/component/velocity_component.tscn" id="4_kf5aj"]
 [ext_resource type="PackedScene" uid="uid://celsgig8vfr3u" path="res://scenes/component/vial_drop_component.tscn" id="5_5p6qm"]
+[ext_resource type="PackedScene" uid="uid://bvjyrhsrehnal" path="res://scenes/component/hit_flash_component.tscn" id="6_se7ek"]
+[ext_resource type="Shader" path="res://scenes/component/hit_flash_component.gdshader" id="7_3a1re"]
 
 [sub_resource type="Animation" id="Animation_i4x1x"]
 length = 0.001
@@ -121,6 +123,11 @@ _data = {
 "walk": SubResource("Animation_rsryt")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_grda3"]
+resource_local_to_scene = true
+shader = ExtResource("7_3a1re")
+shader_parameter/lerp_percent = 0.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_4i7ty"]
 radius = 15.0
 
@@ -142,6 +149,7 @@ libraries = {
 max_health = 22.0
 
 [node name="HealthBarComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("2_wmwb0")]
+visible = false
 custom_minimum_size = Vector2(20, 6)
 offset_left = -10.0
 offset_top = -24.0
@@ -155,6 +163,16 @@ health_component = NodePath("../HealthComponent")
 max_speed = 60
 acceleration = 2.0
 
+[node name="VialDropComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("5_5p6qm")]
+xp_amount = 3
+drop_percent = 0.45
+health_component = NodePath("../HealthComponent")
+
+[node name="HitFlashComponent" parent="." node_paths=PackedStringArray("health_component", "sprite") instance=ExtResource("6_se7ek")]
+health_component = NodePath("../HealthComponent")
+sprite = NodePath("../Visuals/Sprite2D")
+hit_flash_material = SubResource("ShaderMaterial_grda3")
+
 [node name="DeathComponent" parent="." node_paths=PackedStringArray("health_component", "sprite") instance=ExtResource("3_n8bkv")]
 health_component = NodePath("../HealthComponent")
 sprite = NodePath("../Visuals/Sprite2D")
@@ -165,10 +183,6 @@ health_component = NodePath("../HealthComponent")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
 position = Vector2(0, -7)
 shape = SubResource("CircleShape2D_4i7ty")
-
-[node name="VialDropComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("5_5p6qm")]
-xp_amount = 3
-health_component = NodePath("../HealthComponent")
 
 [node name="Visuals" type="Node2D" parent="."]
 
