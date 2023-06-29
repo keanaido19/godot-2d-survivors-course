@@ -1,9 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://1oqwkbc8051n"]
+[gd_scene load_steps=5 format=3 uid="uid://1oqwkbc8051n"]
 
 [ext_resource type="Script" path="res://scenes/component/health_bar_component.gd" id="1_nhtr8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sw6d3"]
 bg_color = Color(0.247059, 0.14902, 0.192157, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ylqm2"]
+resource_local_to_scene = true
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 0)
 
 [sub_resource type="Gradient" id="Gradient_tbknl"]
 offsets = PackedFloat32Array(0, 0.5, 1)
@@ -13,6 +21,7 @@ colors = PackedColorArray(0.909804, 0.270588, 0.215686, 1, 0.996078, 0.682353, 0
 offset_right = 4.0
 offset_bottom = 4.0
 theme_override_styles/background = SubResource("StyleBoxFlat_sw6d3")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ylqm2")
 max_value = 1.0
 show_percentage = false
 script = ExtResource("1_nhtr8")

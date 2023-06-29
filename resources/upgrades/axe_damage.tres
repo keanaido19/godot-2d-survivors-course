@@ -6,5 +6,5 @@
 script = ExtResource("1_lbqjc")
 id = "axe_damage"
 max_quantity = 0
-name = "Axe Damage"
+name = "Heavy Swinger"
 description = "Increases axe damage by 15%."

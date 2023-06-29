@@ -20,9 +20,11 @@ func set_ability_upgrades(upgrades: Array[AbilityUpgrade]) -> void:
 		)
 
 		card_container.add_child(card_instance)
-		card_instance.set_ability_upgrade(upgrade)
 
+		card_instance.set_ability_upgrade(upgrade)
 		card_instance.selected.connect(_on_upgrade_selected.bind(upgrade))
+		card_instance.play_in()
+		await card_instance.animation_done
 
 
 func _on_upgrade_selected(upgrade: AbilityUpgrade):

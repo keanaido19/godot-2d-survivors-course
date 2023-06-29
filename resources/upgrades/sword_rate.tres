@@ -6,5 +6,5 @@
 script = ExtResource("1_50v6c")
 id = "sword_rate"
 max_quantity = 9
-name = "Sword Quickness"
+name = "Nimble Dualist"
 description = "Increases sword attack rate by 10%."

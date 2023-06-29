@@ -7,10 +7,6 @@ class_name HealthBar
 
 func _ready() -> void:
 	health_component.health_changed.connect(_on_health_changed)
-	var sb: StyleBoxFlat = StyleBoxFlat.new()
-	add_theme_stylebox_override("fill", sb)
-	sb.set_border_width_all(2)
-	sb.border_color = Color("ffffff00")
 	update_health_display()
 
 

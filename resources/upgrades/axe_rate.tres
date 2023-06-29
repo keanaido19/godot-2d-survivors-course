@@ -6,5 +6,5 @@
 script = ExtResource("1_nlqf4")
 id = "axe_rate"
 max_quantity = 9
-name = "Axe Speed"
+name = "Speed Chopper"
 description = "Increases axe attack rate by 10%."

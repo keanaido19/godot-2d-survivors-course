@@ -6,5 +6,5 @@
 script = ExtResource("1_d3u6y")
 id = "sword_damage"
 max_quantity = 0
-name = "Sword Damage"
+name = "Precise Slasher"
 description = "Increases sword damage by 15%."

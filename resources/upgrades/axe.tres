@@ -11,5 +11,5 @@ ability_controller_scene = ExtResource("1_ooyi0")
 ability_upgrades = Array[Resource("res://resources/upgrades/ability_upgrade.gd")]([ExtResource("2_42fcf"), ExtResource("3_23a0g")])
 id = "axe"
 max_quantity = 1
-name = "Axe"
+name = "Battle Axe"
 description = "Periodically spawns a spinning axe."
