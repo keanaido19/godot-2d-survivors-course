@@ -1,9 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://cyftfqphnwtyv"]
+[gd_scene load_steps=21 format=3 uid="uid://cyftfqphnwtyv"]
 
 [ext_resource type="Script" path="res://scenes/game_object/player/player.gd" id="1_3any3"]
 [ext_resource type="Texture2D" uid="uid://ctntiktekrkba" path="res://scenes/game_object/player/player.png" id="1_xeve1"]
 [ext_resource type="Resource" uid="uid://d3ejso8dl0hk3" path="res://resources/upgrades/sword.tres" id="2_fy03x"]
 [ext_resource type="PackedScene" uid="uid://doilrwc52clk1" path="res://scenes/component/health_component.tscn" id="2_uh8la"]
+[ext_resource type="PackedScene" uid="uid://c8mcwk8b1v56i" path="res://scenes/component/velocity_component.tscn" id="3_rayoy"]
 [ext_resource type="PackedScene" uid="uid://1oqwkbc8051n" path="res://scenes/component/health_bar_component.tscn" id="4_5p1wi"]
 
 [sub_resource type="Animation" id="Animation_3hxsu"]
@@ -119,6 +120,14 @@ transitions = ["Start", "RESET", SubResource("AnimationNodeStateMachineTransitio
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_pjcui"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fjccg"]
+resource_local_to_scene = true
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 0)
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_jb21l"]
 radius = 32.0
 
@@ -146,6 +155,10 @@ parameters/playback = SubResource("AnimationNodeStateMachinePlayback_pjcui")
 parameters/conditions/is_idle = false
 parameters/conditions/is_walking = false
 
+[node name="VelocityComponent" parent="." instance=ExtResource("3_rayoy")]
+max_speed = 90
+acceleration = 25.0
+
 [node name="HealthComponent" parent="." instance=ExtResource("2_uh8la")]
 
 [node name="HealthBarComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_5p1wi")]
@@ -156,6 +169,7 @@ offset_right = 16.0
 offset_bottom = -20.0
 pivot_offset = Vector2(16, 3)
 size_flags_vertical = 1
+theme_override_styles/fill = SubResource("StyleBoxFlat_fjccg")
 health_component = NodePath("../HealthComponent")
 
 [node name="Abilities" type="Node" parent="."]

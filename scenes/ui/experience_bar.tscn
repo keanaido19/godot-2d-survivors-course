@@ -3,12 +3,7 @@
 [ext_resource type="Script" path="res://scenes/ui/experience_bar.gd" id="1_jkea0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cloyt"]
-bg_color = Color(0.14902, 0.168627, 0.266667, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.247059, 0.14902, 0.192157, 1)
+bg_color = Color(0.247059, 0.14902, 0.192157, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xpiyx"]
 bg_color = Color(0, 0.6, 0.858824, 1)
