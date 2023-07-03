@@ -32,4 +32,5 @@ func _on_died() -> void:
 	).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 
 	$AnimationPlayer.play("default")
+	$RandomAudioStreamPlayer2D.play_random()
 

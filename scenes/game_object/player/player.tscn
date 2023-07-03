@@ -120,7 +120,7 @@ transitions = ["Start", "RESET", SubResource("AnimationNodeStateMachineTransitio
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_pjcui"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fjccg"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_57tnh"]
 resource_local_to_scene = true
 border_width_left = 2
 border_width_top = 2
@@ -169,7 +169,7 @@ offset_right = 16.0
 offset_bottom = -20.0
 pivot_offset = Vector2(16, 3)
 size_flags_vertical = 1
-theme_override_styles/fill = SubResource("StyleBoxFlat_fjccg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_57tnh")
 health_component = NodePath("../HealthComponent")
 
 [node name="Abilities" type="Node" parent="."]

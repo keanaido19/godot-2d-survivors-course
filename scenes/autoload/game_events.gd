@@ -6,9 +6,15 @@ signal player_level_up(level: int)
 signal ability_upgrade_added(upgrade: AbilityUpgrade, quantity: int)
 signal player_upgrades_changed()
 signal upgrade_pool_updated(upgrade_pool: Array[AbilityUpgrade])
+signal player_damaged
 
 var player_upgrades: Dictionary = {}
 var upgrade_pool: Array[AbilityUpgrade] = []
+
+
+func emit_player_damaged() -> void:
+	player_damaged.emit()
+
 
 func emit_experience_vial_collected(amount: float) -> void:
 	experience_vial_collected.emit(amount)
