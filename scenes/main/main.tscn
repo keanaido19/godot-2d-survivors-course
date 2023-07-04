@@ -40,6 +40,7 @@ experience_manager = NodePath("../ExperienceManager")
 upgrade_pool = Array[Resource("res://resources/upgrades/ability_upgrade.gd")]([ExtResource("10_7r4yt"), ExtResource("10_i8j4l"), ExtResource("11_58oet")])
 
 [node name="GameCamera" parent="." instance=ExtResource("1_7d335")]
+position = Vector2(320, 180)
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("1_1t48k")
@@ -51,6 +52,6 @@ y_sort_enabled = true
 
 [node name="Player" parent="Entities" instance=ExtResource("1_ctqxd")]
 unique_name_in_owner = true
-position = Vector2(297, 192)
+position = Vector2(320, 180)
 
 [node name="Foreground" type="Node2D" parent="." groups=["foreground_layer"]]

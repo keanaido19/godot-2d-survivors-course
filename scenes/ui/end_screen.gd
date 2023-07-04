@@ -3,6 +3,8 @@ class_name EndScreen
 
 @onready var panel_container = %PanelContainer
 
+var _is_victory: bool = true
+
 
 func _ready() -> void:
 	panel_container.pivot_offset = panel_container.size / 2
@@ -18,14 +20,24 @@ func _ready() -> void:
 
 
 func set_defeat() -> void:
+	_is_victory = false
 	%TitleLabel.text = "Defeat"
 	%DescriptionLabel.text = "You lose!"
 
 
+func play_jingle() -> void:
+	if _is_victory:
+		$VictoryStreamPlayer.play()
+	else:
+		$DefeatStreamPlayer.play()
+
+
 func _on_restart_button_pressed() -> void:
+	%RestartButton.on_button_pressed()
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://scenes/main/main.tscn")
 
 
 func _on_quit_button_pressed() -> void:
+	%QuitButton.on_button_pressed()
 	get_tree().quit()

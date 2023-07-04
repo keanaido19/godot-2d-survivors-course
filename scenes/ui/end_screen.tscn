@@ -1,6 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bskrvgkv14vhy"]
+[gd_scene load_steps=9 format=3 uid="uid://bskrvgkv14vhy"]
 
 [ext_resource type="Script" path="res://scenes/ui/end_screen.gd" id="1_qpfq4"]
+[ext_resource type="AudioStream" uid="uid://iwk3b8853onw" path="res://assests/audio/jingles_victory.ogg" id="2_aatfw"]
+[ext_resource type="PackedScene" uid="uid://csg5s4g6eg0ob" path="res://scenes/ui/sound_button.tscn" id="2_k4lip"]
+[ext_resource type="AudioStream" uid="uid://c18y1rtx64kfd" path="res://assests/audio/jingles_defeat.ogg" id="3_j0ii7"]
 
 [sub_resource type="Animation" id="Animation_gc4jo"]
 resource_name = "In"
@@ -18,20 +21,19 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
-
-[sub_resource type="Animation" id="Animation_je1co"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [{
+"args": [],
+"method": &"play_jingle"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_4so3v"]
@@ -51,6 +53,21 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_je1co"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_iowc8"]
 _data = {
 "In": SubResource("Animation_gc4jo"),
@@ -67,6 +84,14 @@ autoplay = "In"
 libraries = {
 "": SubResource("AnimationLibrary_iowc8")
 }
+
+[node name="VictoryStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_aatfw")
+bus = &"sfx"
+
+[node name="DefeatStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_j0ii7")
+bus = &"sfx"
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15
@@ -105,23 +130,16 @@ theme_override_constants/separation = 16
 [node name="TitleLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0.14902, 0.168627, 0.266667, 1)
-theme_override_colors/font_outline_color = Color(0.14902, 0.168627, 0.266667, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/outline_size = 7
-theme_override_font_sizes/font_size = 32
+theme_type_variation = &"BlueOutlineLabel"
+theme_override_font_sizes/font_size = 48
 text = "Victory"
 horizontal_alignment = 1
 
 [node name="DescriptionLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0.14902, 0.168627, 0.266667, 1)
-theme_override_colors/font_outline_color = Color(0.14902, 0.168627, 0.266667, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/outline_size = 7
+theme_type_variation = &"BlueOutlineLabel"
+theme_override_font_sizes/font_size = 16
 text = "You won!"
 horizontal_alignment = 1
 
@@ -129,12 +147,12 @@ horizontal_alignment = 1
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="RestartButton" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="RestartButton" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("2_k4lip")]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Restart"
 
-[node name="QuitButton" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="QuitButton" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("2_k4lip")]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Quit"

@@ -30,7 +30,9 @@ func tween_collect(percent: float, start_position: Vector2) -> void:
 	)
 
 func collect() -> void:
+	$RandomAudioStreamPlayer2D.play_random()
 	GameEvents.emit_experience_vial_collected(xp_amount)
+	await $RandomAudioStreamPlayer2D.finished
 	queue_free()
 
 
@@ -50,4 +52,3 @@ func _on_area_entered(area: Area2D):
 	tween.tween_property(sprite, "scale", Vector2.ZERO, 0.05).set_delay(0.45)
 	tween.chain()
 	tween.tween_callback(collect)
-

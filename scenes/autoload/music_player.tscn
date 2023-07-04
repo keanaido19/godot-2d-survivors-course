@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6oq073mt327t"]
+
+[ext_resource type="AudioStream" uid="uid://dfwq52c605j4y" path="res://assests/audio/Black Knight.mp3" id="1_p11n8"]
+[ext_resource type="Script" path="res://scenes/autoload/music_player.gd" id="2_qc0ny"]
+
+[node name="MusicPlayer" type="AudioStreamPlayer"]
+process_mode = 3
+stream = ExtResource("1_p11n8")
+volume_db = -12.0
+autoplay = true
+bus = &"music"
+script = ExtResource("2_qc0ny")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 15.0
+one_shot = true

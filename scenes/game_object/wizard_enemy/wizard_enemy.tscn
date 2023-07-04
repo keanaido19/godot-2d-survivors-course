@@ -129,7 +129,7 @@ _data = {
 "walk": SubResource("Animation_rsryt")
 }
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dr4ro"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kyi31"]
 resource_local_to_scene = true
 border_width_left = 2
 border_width_top = 2
@@ -137,7 +137,7 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 0)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lm0h6"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xwcic"]
 resource_local_to_scene = true
 shader = ExtResource("7_3a1re")
 shader_parameter/lerp_percent = 0.0
@@ -171,7 +171,7 @@ offset_right = 10.0
 offset_bottom = -18.0
 scale = Vector2(0.5, 0.5)
 pivot_offset = Vector2(10, 3)
-theme_override_styles/fill = SubResource("StyleBoxFlat_dr4ro")
+theme_override_styles/fill = SubResource("StyleBoxFlat_kyi31")
 health_component = NodePath("../HealthComponent")
 
 [node name="VelocityComponent" parent="." instance=ExtResource("4_kf5aj")]
@@ -186,7 +186,7 @@ health_component = NodePath("../HealthComponent")
 [node name="HitFlashComponent" parent="." node_paths=PackedStringArray("health_component", "sprite") instance=ExtResource("6_se7ek")]
 health_component = NodePath("../HealthComponent")
 sprite = NodePath("../Visuals/Sprite2D")
-hit_flash_material = SubResource("ShaderMaterial_lm0h6")
+hit_flash_material = SubResource("ShaderMaterial_xwcic")
 
 [node name="DeathComponent" parent="." node_paths=PackedStringArray("health_component", "sprite") instance=ExtResource("3_n8bkv")]
 health_component = NodePath("../HealthComponent")

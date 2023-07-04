@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cyftfqphnwtyv"]
+[gd_scene load_steps=27 format=3 uid="uid://cyftfqphnwtyv"]
 
 [ext_resource type="Script" path="res://scenes/game_object/player/player.gd" id="1_3any3"]
 [ext_resource type="Texture2D" uid="uid://ctntiktekrkba" path="res://scenes/game_object/player/player.png" id="1_xeve1"]
@@ -6,6 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://doilrwc52clk1" path="res://scenes/component/health_component.tscn" id="2_uh8la"]
 [ext_resource type="PackedScene" uid="uid://c8mcwk8b1v56i" path="res://scenes/component/velocity_component.tscn" id="3_rayoy"]
 [ext_resource type="PackedScene" uid="uid://1oqwkbc8051n" path="res://scenes/component/health_bar_component.tscn" id="4_5p1wi"]
+[ext_resource type="Script" path="res://addons/godot-addons/node_library/scripts/random_audio_stream_player_2d.gd" id="6_6bp1y"]
+[ext_resource type="AudioStream" uid="uid://bmnx2wer077xp" path="res://assests/audio/impactMining_000.ogg" id="7_rwim7"]
+[ext_resource type="AudioStream" uid="uid://lro2jvxaw1fl" path="res://assests/audio/impactMining_001.ogg" id="8_dcj5i"]
+[ext_resource type="AudioStream" uid="uid://1lxiqv3niso5" path="res://assests/audio/impactMining_002.ogg" id="9_c3gii"]
+[ext_resource type="AudioStream" uid="uid://3tya20d5ati8" path="res://assests/audio/impactMining_003.ogg" id="10_bhqrv"]
+[ext_resource type="AudioStream" uid="uid://xbsmfrb2virl" path="res://assests/audio/impactMining_004.ogg" id="11_jgm3r"]
 
 [sub_resource type="Animation" id="Animation_3hxsu"]
 length = 0.001
@@ -120,7 +126,7 @@ transitions = ["Start", "RESET", SubResource("AnimationNodeStateMachineTransitio
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_pjcui"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_57tnh"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5qjrf"]
 resource_local_to_scene = true
 border_width_left = 2
 border_width_top = 2
@@ -169,10 +175,16 @@ offset_right = 16.0
 offset_bottom = -20.0
 pivot_offset = Vector2(16, 3)
 size_flags_vertical = 1
-theme_override_styles/fill = SubResource("StyleBoxFlat_57tnh")
+theme_override_styles/fill = SubResource("StyleBoxFlat_5qjrf")
 health_component = NodePath("../HealthComponent")
 
 [node name="Abilities" type="Node" parent="."]
+
+[node name="RandomAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+bus = &"sfx"
+script = ExtResource("6_6bp1y")
+streams = Array[AudioStream]([ExtResource("7_rwim7"), ExtResource("8_dcj5i"), ExtResource("9_c3gii"), ExtResource("10_bhqrv"), ExtResource("11_jgm3r")])
+randomize_pitch = true
 
 [node name="DamageIntervalTimer" type="Timer" parent="."]
 wait_time = 0.5

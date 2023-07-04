@@ -1,0 +1,22 @@
+[gd_scene load_steps=8 format=3 uid="uid://csg5s4g6eg0ob"]
+
+[ext_resource type="Script" path="res://scenes/ui/sound_button.gd" id="1_nlygj"]
+[ext_resource type="Script" path="res://addons/godot-addons/node_library/scripts/random_audio_stream_player.gd" id="2_l44i7"]
+[ext_resource type="AudioStream" uid="uid://c5dqaq5ta6f0w" path="res://assests/audio/click1.ogg" id="3_sh5hd"]
+[ext_resource type="AudioStream" uid="uid://bl8okyxd0q2bi" path="res://assests/audio/click2.ogg" id="4_xsprf"]
+[ext_resource type="AudioStream" uid="uid://bh7oii2373smw" path="res://assests/audio/click3.ogg" id="5_yqlh6"]
+[ext_resource type="AudioStream" uid="uid://g7rx1exfno78" path="res://assests/audio/click4.ogg" id="6_k711y"]
+[ext_resource type="AudioStream" uid="uid://csiv5gmwrofgv" path="res://assests/audio/click5.ogg" id="7_ercb1"]
+
+[node name="SoundButton" type="Button"]
+process_mode = 3
+offset_right = 6.0
+offset_bottom = 6.0
+text = "Sound Button"
+script = ExtResource("1_nlygj")
+
+[node name="RandomAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"sfx"
+script = ExtResource("2_l44i7")
+streams = Array[AudioStream]([ExtResource("3_sh5hd"), ExtResource("4_xsprf"), ExtResource("5_yqlh6"), ExtResource("6_k711y"), ExtResource("7_ercb1")])
+randomize_pitch = true

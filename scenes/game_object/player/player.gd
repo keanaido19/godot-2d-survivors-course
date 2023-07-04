@@ -70,6 +70,7 @@ func check_deal_damage() -> void:
 	if 0 == number_colliding_bodies || not damage_interval_timer.is_stopped():
 		return
 
+	$RandomAudioStreamPlayer2D.play_random()
 	GameEvents.emit_player_damaged()
 	health_component.damage(1.0)
 	damage_interval_timer.start()
