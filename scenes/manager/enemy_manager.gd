@@ -42,9 +42,13 @@ func get_spawn_position() -> Vector2:
 			player.global_position + (random_direction * SPAWN_RADIUS)
 		)
 
+		var additional_check_offset: Vector2 = random_direction * 20
+
 		var query_parameters: PhysicsRayQueryParameters2D = (
 			PhysicsRayQueryParameters2D.create(
-				player.global_position, spawn_position, 1
+				player.global_position,
+				spawn_position + additional_check_offset,
+				1
 			)
 		)
 		var result: Dictionary = (

@@ -11,6 +11,7 @@ const DIFFICULTY_INTERVAL: float = 5.0
 
 var arena_difficulty: int = 0
 
+
 func _ready() -> void:
 	_timer.timeout.connect(_on_timer_timeout)
 
@@ -31,8 +32,8 @@ func get_time_elapsed() -> float:
 
 
 func _on_timer_timeout() -> void:
-	var end_screen_instance: EndScreen = (
+	var end_screen_instance: EndScreen = \
 		end_screen_scene.instantiate() as EndScreen
-	)
 
-	get_parent().add_child(end_screen_instance)
+	add_child(end_screen_instance)
+	MetaProgression.save()

@@ -9,6 +9,7 @@ var options_scene: PackedScene = preload("res://scenes/ui/options_menu.tscn")
 func _ready() -> void:
 	panel_container.pivot_offset = panel_container.size / 2
 	%PlayButton.pressed.connect(_on_play_button_pressed)
+	%UpgradesButton.pressed.connect(_on_upgrades_button_pressed)
 	%OptionsButton.pressed.connect(_on_options_button_pressed)
 	%QuitButton.pressed.connect(_on_quit_button_pressed)
 
@@ -30,7 +31,16 @@ func fade_out() -> void:
 
 func _on_play_button_pressed() -> void:
 	await fade_out()
-	get_tree().change_scene_to_file("res://scenes/main/main.tscn")
+	ScreenTransition.transition_to_scene(
+		scene_file_path, "res://scenes/main/main.tscn"
+		)
+
+
+func _on_upgrades_button_pressed() -> void:
+	await fade_out()
+	ScreenTransition.transition_to_scene(
+		scene_file_path, "res://scenes/ui/meta_menu.tscn"
+		)
 
 
 func _on_options_button_pressed() -> void:

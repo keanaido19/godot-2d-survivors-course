@@ -10,7 +10,14 @@ func _ready() -> void:
 
 
 func _on_died() -> void:
-	if randf() > drop_percent:
+	var adjusted_drop_percent: float = drop_percent
+
+	var experience_gain_upgrade_count = \
+		MetaProgression.get_meta_upgrade_amount("experience_gain")
+
+	adjusted_drop_percent += (experience_gain_upgrade_count * 0.1)
+
+	if randf() > adjusted_drop_percent:
 		return
 
 	if null == vial_scene || not owner is Node2D:

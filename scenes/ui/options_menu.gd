@@ -37,7 +37,14 @@ func fade_out() -> void:
 
 
 func _update_display() -> void:
-	_on_window_mode_selected(window_mode_option_button.selected)
+	var window_mode := DisplayServer.window_get_mode()
+
+	match window_mode:
+		DisplayServer.WINDOW_MODE_FULLSCREEN:
+			window_mode_option_button.selected = 1
+		DisplayServer.WINDOW_MODE_WINDOWED:
+			window_mode_option_button.selected = 0
+
 	sfx_slider.value = get_bus_volume_percent("sfx")
 	music_slider.value = get_bus_volume_percent("music")
 
@@ -65,6 +72,9 @@ func _on_audio_slider_changed(volume_percent: float, bus_name: String) -> void:
 
 func _on_window_mode_selected(index: int) -> void:
 	if index == 0:
+		DisplayServer.window_set_flag(
+			DisplayServer.WINDOW_FLAG_BORDERLESS, false
+			)
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 	elif index == 1:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)

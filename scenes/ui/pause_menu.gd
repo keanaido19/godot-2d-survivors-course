@@ -64,5 +64,5 @@ func _on_options_closed(options_instance: CanvasLayer) -> void:
 func _on_quit_button_pressed() -> void:
 	$AnimationPlayer.play("Out")
 	await fade_out()
-	get_tree().change_scene_to_file("res://scenes/ui/main_menu.tscn")
 	get_tree().paused = false
+	ScreenTransition.go_back_to_previous_scene()
