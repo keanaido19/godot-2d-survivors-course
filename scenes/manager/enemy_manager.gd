@@ -4,6 +4,7 @@ const SPAWN_RADIUS: float = 330
 
 @export var basic_enemy_scene: PackedScene
 @export var wizard_enemy_scene: PackedScene
+@export var ghost_enemy_scene: PackedScene
 @export var arena_time_manager: ArenaTimeManager
 
 @onready var _timer: Timer = $Timer
@@ -110,3 +111,6 @@ func _on_arena_difficulty_increased(arena_difficulty: int) -> void:
 
 	if arena_difficulty == 6:
 		enemy_table.add_item(wizard_enemy_scene, 20)
+	
+	if arena_difficulty == 35:
+		enemy_table.add_item(ghost_enemy_scene, 18)

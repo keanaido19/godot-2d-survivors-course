@@ -5,7 +5,7 @@ signal meta_upgrade_currency_changed
 const SAVE_FILE_PATH: String = "user://game.save"
 
 var save_data: Dictionary = {
-	"meta_upgrade_currency": 0,
+	"meta_upgrade_currency": 1000,
 	"meta_upgrades": {}
 }
 
@@ -46,8 +46,8 @@ func get_meta_upgrade_amount(upgrade_id: String) -> int:
 	return 0
 
 func purchase_meta_upgrade(upgrade: MetaUpgrade) -> void:
-	_update_meta_currency(-upgrade.experience_cost)
 	add_meta_upgrade(upgrade)
+	_update_meta_currency(-upgrade.experience_cost)
 
 
 func _update_meta_currency(amount: float) -> void:

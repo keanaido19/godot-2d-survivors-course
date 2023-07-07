@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dhigsvdpcssh6"]
+[gd_scene load_steps=17 format=3 uid="uid://dhigsvdpcssh6"]
 
 [ext_resource type="TileSet" uid="uid://dbsvxe0w6myws" path="res://resources/tileset.tres" id="1_1t48k"]
 [ext_resource type="PackedScene" uid="uid://4qjgrqqrwgwq" path="res://scenes/game_object/game_camera/game_camera.tscn" id="1_7d335"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://dqkbtbfyj8hm3" path="res://scenes/manager/experience_manager.tscn" id="4_1phss"]
 [ext_resource type="PackedScene" uid="uid://nhuydv82kclm" path="res://scenes/manager/enemy_manager.tscn" id="5_tppc5"]
 [ext_resource type="PackedScene" uid="uid://d3ucus0xm02s2" path="res://scenes/manager/upgrade_manager.tscn" id="6_0x76l"]
+[ext_resource type="PackedScene" uid="uid://bqe7ducic8wr" path="res://scenes/game_object/ghost_enemy/ghost_enemy.tscn" id="8_whx47"]
 [ext_resource type="Resource" uid="uid://c8uf75c4s4160" path="res://resources/upgrades/axe.tres" id="10_7r4yt"]
 [ext_resource type="Resource" uid="uid://d3ejso8dl0hk3" path="res://resources/upgrades/sword.tres" id="10_i8j4l"]
 [ext_resource type="Resource" uid="uid://ddnqxod83rr8l" path="res://resources/upgrades/player_speed.tres" id="11_58oet"]
@@ -31,6 +32,7 @@ arena_time_manager = NodePath("../ArenaTimeManager")
 [node name="ArenaTimeManager" parent="." instance=ExtResource("2_sindq")]
 
 [node name="EnemyManager" parent="." node_paths=PackedStringArray("arena_time_manager") instance=ExtResource("5_tppc5")]
+ghost_enemy_scene = ExtResource("8_whx47")
 arena_time_manager = NodePath("../ArenaTimeManager")
 
 [node name="ExperienceManager" parent="." instance=ExtResource("4_1phss")]

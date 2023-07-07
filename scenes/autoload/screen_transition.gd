@@ -4,7 +4,7 @@ signal transitioned_halfway
 
 @onready var color_rect = $ColorRect
 
-var should_skip_emit: bool = false
+var should_skip_emit: bool = true
 var scene_paths: Array[String] = []
 
 
@@ -35,12 +35,11 @@ func transition() -> void:
 
 func change_visibilty() -> void:
 	color_rect.visible = not color_rect.visible
+	should_skip_emit = not should_skip_emit
 
 
 func emit_transitioned_halfway() -> void:
 	if should_skip_emit:
-		should_skip_emit = false
 		return
 
-	should_skip_emit = true
 	transitioned_halfway.emit()
